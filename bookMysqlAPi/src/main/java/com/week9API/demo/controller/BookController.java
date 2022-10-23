@@ -1,41 +1,58 @@
 package com.week9API.demo.controller;
 
-import com.week9API.demo.entity.Book;
+import com.week9API.demo.entity.BookOrder;
+import com.week9API.demo.orderResponse.OrderResponse;
 import com.week9API.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
+@EnableTransactionManagement
 public class BookController {
 
     @Autowired
     private BookService service;
 
-    @PostMapping("/api/addBook")
-    public Book addBook(@RequestBody Book book){
-        return service.saveBook(book);
+    @PostMapping(path="/api/addOrder",consumes = "application/json")
+    public ResponseEntity<OrderResponse> addBook(@RequestBody BookOrder bookOrder){
+        try{
+            OrderResponse saved = service.saveBook(bookOrder);
+            return ResponseEntity.status(HttpStatus.OK).body(saved);
+        }catch(Exception e){
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PostMapping("/api/addOrders")
+    public List<BookOrder> addBooks(@RequestBody List<BookOrder> bookOrders){
+        return service.saveBooks(bookOrders);
     }
 
-    @PostMapping("/api/addBooks")
-    public List<Book> addBooks(@RequestBody List<Book>books){
-        return service.saveBooks(books);
-    }
-
-    @GetMapping("/api/Books")
-    public List<Book> findAllBooks(){
+    @GetMapping("/api/Orders")
+    public List<BookOrder> findAllBooks(){
         return service.getBooks();
     }
 
-    @GetMapping("/api/Book/{id}")
-    public Book findBookById(@PathVariable  int id){
+    @GetMapping("/api/Orders/{id}")
+    public OrderResponse findBookById(@PathVariable int id){
         return service.getBookById(id);
     }
 
-    @DeleteMapping("/api/Book/{id}")
-    public String deleteBook(@PathVariable int id){
-        return service.deleteBook(id);
+    @DeleteMapping("/api/Orders/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> deleteBook(@PathVariable int id){
+        return ResponseEntity.status(HttpStatus.OK).body(service.deleteBook(id));
     }
 
+    @PutMapping("/api/Orders/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<OrderResponse> updateOrder(@PathVariable(value="id")int id, @RequestBody BookOrder bookOrder){
+        return ResponseEntity.status(HttpStatus.OK).body(service.updateOrder(id, bookOrder));
+    }
 }
