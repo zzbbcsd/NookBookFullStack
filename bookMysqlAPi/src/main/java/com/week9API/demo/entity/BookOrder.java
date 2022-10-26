@@ -30,7 +30,7 @@ public class BookOrder {
     private String publisher;
 
     @Column(name="giftMessage",nullable=true)
-    private byte[] giftMessage;
+    private String giftMessage;
 
     }
 

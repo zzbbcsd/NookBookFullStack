@@ -18,5 +18,5 @@ public class OrderResponse {
     private String publisher;
     private String customerName;
     private String customerEmail;
-    private byte[] giftMessage;
+    private String giftMessage;
 }

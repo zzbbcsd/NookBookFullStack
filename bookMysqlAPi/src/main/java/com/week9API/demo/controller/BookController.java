@@ -3,6 +3,8 @@ package com.week9API.demo.controller;
 import com.week9API.demo.entity.BookOrder;
 import com.week9API.demo.orderResponse.OrderResponse;
 import com.week9API.demo.service.BookService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,11 +38,13 @@ public class BookController {
 
     @GetMapping("/api/Orders")
     public List<BookOrder> findAllBooks(){
+
         return service.getBooks();
     }
 
     @GetMapping("/api/Orders/{id}")
     public OrderResponse findBookById(@PathVariable int id){
+
         return service.getBookById(id);
     }
 

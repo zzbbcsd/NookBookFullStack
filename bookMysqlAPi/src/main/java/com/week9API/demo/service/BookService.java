@@ -49,6 +49,7 @@ public class BookService {
         existingOrder.setTitle(bookOrder.getTitle());
         existingOrder.setAuthor(bookOrder.getAuthor());
         existingOrder.setPublisher(bookOrder.getPublisher());
+        existingOrder.setCustomerEmail(bookOrder.getCustomerEmail());
         BookOrder updated = repository.save(existingOrder);
         OrderResponse updatedOrderResponse = new OrderResponse();
         modelMapper.map(updated,updatedOrderResponse);
