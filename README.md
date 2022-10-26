@@ -41,3 +41,4 @@ Single Page Application / User Interface:
 Responsive UI integrated with APIs.
 Common UI best practices (forms, CSS, validation, proper content including success / failure messages, spacing, etc.)
 
+<img width="1418" alt="Screen Shot 2022-10-26 at 3 47 03 PM" src="https://user-images.githubusercontent.com/60021932/198152953-760722d6-56aa-4a24-95f5-f2ba8edbb8f9.png">
